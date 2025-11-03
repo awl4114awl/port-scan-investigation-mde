@@ -37,7 +37,9 @@ This script attempts multiple TCP connections across common ports (21–8443) ta
 
 If this were a real network, this pattern would be a red flag for internal threat actor behavior.
 
-![image1](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 131308.png" width="750">
+</p>
 
 ---
 
@@ -53,7 +55,9 @@ DeviceNetworkEvents
 | order by FailedConnections desc
 ```
 
-![image2](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 110650.png" width="750">
+</p>
 
 The query revealed that **awl4114awl-mde** had multiple failed connection attempts to `10.0.0.5`, which strongly indicates scanning behavior.
 
@@ -68,7 +72,9 @@ DeviceNetworkEvents
 | order by FailedConnectionsAttempts desc
 ```
 
-![image3](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 110705.png" width="750">
+</p>
 
 Result: The VM `10.0.0.109` was confirmed as the source of the repeated failed connections.
 
@@ -82,8 +88,14 @@ DeviceNetworkEvents
 | order by Timestamp desc
 ```
 
-![image4](#)
-![image5](#)
+
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 110719.png" width="750">
+</p>
+
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 072538.png" width="750">
+</p>
 
 This pattern clearly shows multiple sequential port attempts across the same destination (`10.0.0.5`), confirming active port scanning.
 
@@ -101,13 +113,17 @@ DeviceProcessEvents
 | project DeviceName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine
 ```
 
-![image6](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 134511.png" width="750">
+</p>
 
 At first, the results contained mostly normal system processes (e.g., `svchost.exe`, `TiWorker.exe`), but after filtering for PowerShell executions with policy bypass or web requests, I found the key event.
 
 Searching specifically for `-ExecutionPolicy Bypass` isolated the malicious command chain.
 
-![image7](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 114756.png" width="750">
+</p>
 
 ---
 
@@ -123,11 +139,16 @@ DeviceProcessEvents
 | order by Timestamp desc
 ```
 
-![image8](#)
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 125013.png" width="750">
+</p>
 
 The **Defender timeline** displayed clear spikes for **awl4114awl-mde** correlating with PowerShell execution events, confirming a link between the process and the network anomaly.
 
-![image9](#)
+
+<p align="left">
+  <img src="images/Screenshot 2025-11-03 125026.png" width="750">
+</p>
 
 ### 🧩 Key Evidence
 
