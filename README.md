@@ -56,7 +56,7 @@ DeviceNetworkEvents
 ```
 
 <p align="left">
-  <img src="images/Screenshot 2025-11-03 110650.png" width="750">
+  <img src="images/Screenshot 2025-11-03 110650.png" width="450">
 </p>
 
 The query revealed that **awl4114awl-mde** had multiple failed connection attempts to `10.0.0.5`, which strongly indicates scanning behavior.
