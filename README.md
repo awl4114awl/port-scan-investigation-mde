@@ -1,21 +1,29 @@
 # 🔍 Port Scan Investigation with Microsoft Defender for Endpoint (MDE)
 
-## 🎯 Objective
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge\&logo=powershell\&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge\&logo=microsoftazure\&logoColor=white)
+![Windows 11](https://img.shields.io/badge/Windows_11-0078D6?style=for-the-badge\&logo=windows11\&logoColor=white)
+![Microsoft Defender for Endpoint](https://img.shields.io/badge/Microsoft_Defender_for_Endpoint-7A57D1?style=for-the-badge\&logo=microsoftdefender\&logoColor=white)
+![MITRE ATT\&CK](https://img.shields.io/badge/MITRE_ATT%26CK-Reconnaissance-orange?style=for-the-badge)
+![Cyber Range](https://img.shields.io/badge/Cyber_Range-Training_Environment-0A84FF?style=for-the-badge)
 
-Demonstrate how to investigate and confirm suspicious network activity — specifically **port scanning** — inside an enterprise environment using **Microsoft Defender for Endpoint (MDE)** advanced hunting capabilities.
+> ⚙️ In this project, I am going to demonstrate how I investigated and confirmed suspicious network activity — specifically **port scanning** — within the shared **Cyber Range** environment using **Microsoft Defender for Endpoint (MDE)** advanced hunting capabilities.
 
 ---
 
 ## 🧱 Environment Overview
 
-In this demo, I use a **Windows 11 24H2** virtual machine named **awl4114awl-mde**, assigned:
-
-* **Public IP:** `20.57.46.8`
-* **Private IP:** `10.0.0.109`
-* **Region:** East US 2
-* **Instance:** Standard DS1 v2
-* **Network:** `Cyber-Range-Subnet`
-* **Subscription:** `LOG(N) Pacific – Cyber Range 1`
+| Component         | Details                                |
+| ----------------- | -------------------------------------- |
+| **VM Name**       | awl4114awl-mde                         |
+| **OS Image**      | Windows 11 24H2                        |
+| **Region**        | East US 2                              |
+| **VM Size**       | Standard DS1 v2                        |
+| **Security Type** | Standard (trusted launch disabled)     |
+| **Network**       | Cyber-Range-Subnet (shared Azure VNet) |
+| **Public IP**     | 20.57.46.8                           	 |
+| **Private IP**    | 10.0.0.109                             |
+| **Subscription**  | LOG(N) Pacific – Cyber Range 1         |
 
 The **Cyber Range** is a shared, cloud-based training environment designed to simulate enterprise networks and attack scenarios. Each participant operates within a common virtual network where simulated threats can safely occur and be detected without risk to production systems.
 
@@ -88,7 +96,6 @@ DeviceNetworkEvents
 | order by Timestamp desc
 ```
 
-
 <p align="left">
   <img src="images/Screenshot 2025-11-03 110719.png" width="750">
 </p>
@@ -129,7 +136,7 @@ Searching specifically for `-ExecutionPolicy Bypass` isolated the malicious comm
 
 ## 🧩 Step 4 | Confirm Execution Source
 
-After expanding the time window, I refined the query to isolate all **PowerShell commands** that bypassed execution policy — a common indicator of scripted or potentially malicious automation.
+After expanding the time window, I refined the query to isolate all **PowerShell commands** that bypassed execution policy — a common indicator of scripted or potentially malicious automation:
 
 ```kql
 DeviceProcessEvents
@@ -144,7 +151,6 @@ DeviceProcessEvents
 </p>
 
 The **Defender timeline** displayed clear spikes for **awl4114awl-mde** correlating with PowerShell execution events, confirming a link between the process and the network anomaly.
-
 
 <p align="left">
   <img src="images/Screenshot 2025-11-03 125026.png" width="750">
@@ -194,9 +200,9 @@ By correlating **network telemetry** and **process telemetry**, I established a 
 
 ## 🧩 Conclusion
 
-By combining **network logs** (`DeviceNetworkEvents`) with **process logs** (`DeviceProcessEvents`), I was able to trace a complete simulated attack from detection to root-cause attribution.
+By combining network logs (`DeviceNetworkEvents`) with process logs (`DeviceProcessEvents`), I was able to trace a complete simulated attack from detection to root-cause attribution.
 
-This demonstrates a realistic **SOC investigation workflow**:
+This demonstrates a realistic SOC investigation workflow:
 
 1. Detect anomalous behavior.
 2. Pivot to process telemetry for root cause.
@@ -209,3 +215,5 @@ In a real enterprise environment, this activity would warrant:
 * Script analysis
 * PowerShell execution policy hardening
 * Implementation of AppLocker or WDAC controls
+
+---
