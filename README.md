@@ -11,7 +11,33 @@
 
 ---
 
-## 🧱 Environment Overview
+## ℹ️ Overview
+
+This lab simulates a real-world security investigation inside an enterprise environment using Microsoft Defender for Endpoint (MDE).
+
+---
+
+I intentionally executed a PowerShell-based port-scanning script on a Windows 11 workstation inside the Cyber Range to generate suspicious network activity that mimics internal reconnaissance.
+
+I then:
+
+1. **Detected** the anomalous traffic using MDE’s network telemetry
+2. **Correlated** the activity with process-level events using Advanced Hunting
+3. **Traced** the behavior back to the initiating PowerShell script
+4. **Confirmed** the full execution chain and validated attribution
+
+This demonstrates my ability to:
+
+* Identify abnormal network patterns using DeviceNetworkEvents
+* Pivot into process telemetry to uncover root cause
+* Analyze PowerShell execution and command-line behavior
+* Perform an end-to-end SOC-style investigation using MDE
+
+---
+
+## 🖳 Lab Workflow
+
+### 1️⃣ Provision Windows Server VM
 
 | Component         | Details                                |
 | ----------------- | -------------------------------------- |
@@ -27,12 +53,11 @@
 
 The **Cyber Range** is a shared, cloud-based training environment designed to simulate enterprise networks and attack scenarios. Each participant operates within a common virtual network where simulated threats can safely occur and be detected without risk to production systems.
 
-This VM represents an internal workstation onboarded to **Microsoft Defender for Endpoint (MDE)**.
-I used a controlled PowerShell script to simulate internal reconnaissance (port scanning), then used **KQL (Kusto Query Language)** within MDE Advanced Hunting to detect, analyze, and attribute the behavior.
+This VM represents an internal workstation onboarded to **Microsoft Defender for Endpoint (MDE)**. I used a controlled PowerShell script to simulate internal reconnaissance (port scanning), then used **KQL (Kusto Query Language)** within MDE Advanced Hunting to detect, analyze, and attribute the behavior.
 
 ---
 
-## ⚙️ Step 1 | Generate the Activity
+### 2️⃣ Generate the Activity
 
 I began by running a PowerShell port-scanning script to intentionally create suspicious network traffic.
 
@@ -51,7 +76,7 @@ If this were a real network, this pattern would be a red flag for internal threa
 
 ---
 
-## 📈 Step 2 | Identify the Anomaly (Data Analysis)
+### 3️⃣ Identify the Anomaly (Data Analysis)
 
 Using **DeviceNetworkEvents**, I queried failed connections to detect anomalous outbound traffic:
 
@@ -108,7 +133,7 @@ This pattern clearly shows multiple sequential port attempts across the same des
 
 ---
 
-## 🧠 Step 3 | Correlate Behavior (Investigation Phase)
+### 4️⃣ Correlate Behavior (Investigation Phase)
 
 With the network anomaly confirmed, I pivoted to **DeviceProcessEvents** to identify which process triggered it:
 
@@ -134,7 +159,7 @@ Searching specifically for `-ExecutionPolicy Bypass` isolated the malicious comm
 
 ---
 
-## 🧩 Step 4 | Confirm Execution Source
+### 5️⃣ Confirm Execution Source
 
 After expanding the time window, I refined the query to isolate all **PowerShell commands** that bypassed execution policy — a common indicator of scripted or potentially malicious automation:
 
@@ -156,7 +181,7 @@ The **Defender timeline** displayed clear spikes for **awl4114awl-mde** correlat
   <img src="images/Screenshot 2025-11-03 125026.png" width="750">
 </p>
 
-### 🧩 Key Evidence
+### Key Evidence
 
 This query surfaced the **exact command** responsible for executing the scan:
 
@@ -172,7 +197,7 @@ cmd.exe → powershell.exe → portscan.ps1
 
 Cross-referencing timestamps with `DeviceNetworkEvents` verified that this activity directly preceded the burst of failed TCP connections — confirming the port-scanning event originated from this command.
 
-### ✅ Attribution
+### Attribution
 
 The suspicious network behavior originated from:
 
@@ -185,7 +210,7 @@ By correlating **network telemetry** and **process telemetry**, I established a 
 
 ---
 
-## 🧾 Step 5 | Findings Summary
+### 6️⃣ Findings Summary
 
 | Category               | Observation / Evidence                                                               |
 | ---------------------- | ------------------------------------------------------------------------------------ |
@@ -198,7 +223,7 @@ By correlating **network telemetry** and **process telemetry**, I established a 
 
 ---
 
-## 🧩 Conclusion
+### 7️⃣ Conclusion
 
 By combining network logs (`DeviceNetworkEvents`) with process logs (`DeviceProcessEvents`), I was able to trace a complete simulated attack from detection to root-cause attribution.
 
