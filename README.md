@@ -240,5 +240,3 @@ In a real enterprise environment, this activity would warrant:
 * Script analysis
 * PowerShell execution policy hardening
 * Implementation of AppLocker or WDAC controls
-
----
