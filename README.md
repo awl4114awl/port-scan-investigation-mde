@@ -6,29 +6,27 @@
 ![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge\&logo=powershell\&logoColor=white)
 ![Windows 11](https://img.shields.io/badge/Windows_11-0078D6?style=for-the-badge\&logo=windows11\&logoColor=white)
 
-> ⚙️ In this project, I am going to demonstrate how I investigated and confirmed suspicious network activity — specifically port scanning within the shared Cyber Range environment using Microsoft Defender for Endpoint (MDE) advanced hunting capabilities.
-
 ---
 
 ## ℹ️ Overview
 
-This lab simulates a real-world security investigation inside an enterprise environment using Microsoft Defender for Endpoint (MDE).
+This lab was carried out in **The Cyber Range**, an Azure-hosted enterprise environment where I replicate real-world detection, investigation, and remediation workflows. Here, I simulate a realistic security investigation using Microsoft Defender for Endpoint (MDE).
 
 ---
 
-I intentionally executed a PowerShell-based port-scanning script on a Windows 11 workstation inside the Cyber Range to generate suspicious network activity that mimics internal reconnaissance.
+I intentionally executed a PowerShell-based port-scanning script on a Windows 11 workstation to generate suspicious network activity mirroring internal reconnaissance.
 
 I then:
 
 1. **Detected** the anomalous traffic using MDE’s network telemetry
-2. **Correlated** the activity with process-level events using Advanced Hunting
-3. **Traced** the behavior back to the initiating PowerShell script
-4. **Confirmed** the full execution chain and validated attribution
+2. **Correlated** the behavior with process-level events using Advanced Hunting
+3. **Traced** the activity back to the initiating PowerShell script
+4. **Validated** the execution chain and confirmed attribution
 
 This demonstrates my ability to:
 
-* Identify abnormal network patterns using DeviceNetworkEvents
-* Pivot into process telemetry to uncover root cause
+* Identify abnormal network patterns using `DeviceNetworkEvents`
+* Pivot into correlated process telemetry to uncover root cause
 * Analyze PowerShell execution and command-line behavior
 * Perform an end-to-end SOC-style investigation using MDE
 
