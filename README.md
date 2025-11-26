@@ -1,13 +1,12 @@
 # 💻 Port Scan Investigation with Microsoft Defender for Endpoint (MDE)
 
-![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge\&logo=powershell\&logoColor=white)
+![Cyber Range](https://img.shields.io/badge/Cyber_Range-Lab_Environment-purple?style=for-the-badge)
 ![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge\&logo=microsoftazure\&logoColor=white)
-![Windows 11](https://img.shields.io/badge/Windows_11-0078D6?style=for-the-badge\&logo=windows11\&logoColor=white)
 ![Microsoft Defender for Endpoint](https://img.shields.io/badge/Microsoft_Defender_for_Endpoint-7A57D1?style=for-the-badge\&logo=microsoftdefender\&logoColor=white)
-![MITRE ATT\&CK](https://img.shields.io/badge/MITRE_ATT%26CK-Reconnaissance-orange?style=for-the-badge)
-![Cyber Range](https://img.shields.io/badge/Cyber_Range-Training_Environment-0A84FF?style=for-the-badge)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge\&logo=powershell\&logoColor=white)
+![Windows 11](https://img.shields.io/badge/Windows_11-0078D6?style=for-the-badge\&logo=windows11\&logoColor=white)
 
-> ⚙️ In this project, I am going to demonstrate how I investigated and confirmed suspicious network activity — specifically **port scanning** — within the shared **Cyber Range** environment using **Microsoft Defender for Endpoint (MDE)** advanced hunting capabilities.
+> ⚙️ In this project, I am going to demonstrate how I investigated and confirmed suspicious network activity — specifically port scanning within the shared Cyber Range environment using Microsoft Defender for Endpoint (MDE) advanced hunting capabilities.
 
 ---
 
