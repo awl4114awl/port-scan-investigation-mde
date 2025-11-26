@@ -16,7 +16,7 @@ To generate the signal, I executed a custom PowerShell port-scanning script desi
 
 From there, I used Advanced Hunting to trace the event chain back to the originating PowerShell process, connecting the network activity to the exact command-line execution responsible for it. By pivoting between network and process telemetry, I was able to fully reconstruct the behavior, validate attribution, and confirm that the activity aligned with an intentional internal scan rather than a benign system process.
 
-This investigation highlights my ability to identify irregular network patterns, correlate them with underlying process data, analyze PowerShell execution artifacts, and perform an end-to-end SOC-style investigation using Microsoft Defender for Endpoint.
+This investigation highlights how I identify irregular network patterns, correlate them with underlying process data, analyze PowerShell execution artifacts, and perform an end-to-end SOC-style investigation using Microsoft Defender for Endpoint.
 
 ---
 
